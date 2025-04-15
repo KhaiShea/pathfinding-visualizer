@@ -1,0 +1,57 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f4f4f9;
+}
+
+header {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+#grid {
+    display: grid;
+    grid-template-columns: repeat(20, 30px);
+    grid-template-rows: repeat(20, 30px);
+    gap: 1px;
+    background-color: #ccc;
+}
+
+.grid-cell {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.grid-cell.start {
+    background-color: green;
+}
+
+.grid-cell.end {
+    background-color: red;
+}
+
+.grid-cell.wall {
+    background-color: black;
+}
+
+.grid-cell.visited {
+    background-color: lightblue;
+}
+
+.grid-cell.path {
+    background-color: gold;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pathfinding Visualizer</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Pathfinding Algorithm Visualizer</h1>
+        <div class="controls">
+            <select id="algorithm-select">
+                <option value="bfs">Breadth-First Search (BFS)</option>
+                <option value="dfs">Depth-First Search (DFS)</option>
+                <option value="dijkstra">Dijkstra's Algorithm</option>
+                <option value="astar">A* Search</option>
+            </select>
+            <button id="run-btn">Run</button>
+            <button id="reset-btn">Reset Grid</button>
+            <button id="clear-path-btn">Clear Path</button>
+            <label for="speed-slider">Speed:</label>
+            <input type="range" id="speed-slider" min="1" max="10" value="5">
+        </div>
+    </header>
+    <main>
+        <div id="grid"></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>
