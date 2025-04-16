@@ -240,6 +240,115 @@ async function astar(start, end) {
     }
 }
 
+// Greedy Best-First Search
+async function greedyBestFirstSearch(start, end) {
+    const visited = new Set();
+    const parentMap = new Map();
+    const priorityQueue = [{ node: start, heuristic: 0 }];
+
+    function heuristic(node) {
+        const [row1, col1] = [parseInt(node.dataset.row), parseInt(node.dataset.col)];
+        const [row2, col2] = [parseInt(end.dataset.row), parseInt(end.dataset.col)];
+        return Math.abs(row1 - row2) + Math.abs(col1 - col2);
+    }
+
+    while (priorityQueue.length > 0) {
+        priorityQueue.sort((a, b) => a.heuristic - b.heuristic);
+        const { node: current } = priorityQueue.shift();
+
+        if (visited.has(current)) continue;
+        visited.add(current);
+
+        current.classList.add('visited');
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+
+        if (current === end) break;
+
+        for (const neighbor of getNeighbors(current)) {
+            if (!visited.has(neighbor)) {
+                parentMap.set(neighbor, current);
+                priorityQueue.push({ node: neighbor, heuristic: heuristic(neighbor) });
+            }
+        }
+    }
+
+    // Trace back the path
+    let current = end;
+    while (current && current !== start) {
+        current.classList.add('path');
+        current = parentMap.get(current);
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+    }
+}
+
+// Bidirectional Search
+async function bidirectionalSearch(start, end) {
+    const startQueue = [start];
+    const endQueue = [end];
+    const startVisited = new Set();
+    const endVisited = new Set();
+    const startParentMap = new Map();
+    const endParentMap = new Map();
+
+    startVisited.add(start);
+    endVisited.add(end);
+
+    while (startQueue.length > 0 && endQueue.length > 0) {
+        // Expand from the start side
+        const currentStart = startQueue.shift();
+        currentStart.classList.add('visited');
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+
+        for (const neighbor of getNeighbors(currentStart)) {
+            if (!startVisited.has(neighbor)) {
+                startVisited.add(neighbor);
+                startParentMap.set(neighbor, currentStart);
+                startQueue.push(neighbor);
+                if (endVisited.has(neighbor)) {
+                    return traceBidirectionalPath(neighbor, startParentMap, endParentMap, start, end);
+                }
+            }
+        }
+
+        // Expand from the end side
+        const currentEnd = endQueue.shift();
+        currentEnd.classList.add('visited');
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+
+        for (const neighbor of getNeighbors(currentEnd)) {
+            if (!endVisited.has(neighbor)) {
+                endVisited.add(neighbor);
+                endParentMap.set(neighbor, currentEnd);
+                endQueue.push(neighbor);
+                if (startVisited.has(neighbor)) {
+                    return traceBidirectionalPath(neighbor, startParentMap, endParentMap, start, end);
+                }
+            }
+        }
+    }
+}
+
+// Helper function to trace the path for bidirectional search
+async function traceBidirectionalPath(meetingNode, startParentMap, endParentMap, start, end) {
+    let current = meetingNode;
+
+    // Trace back to the start
+    while (current && current !== start) {
+        current.classList.add('path');
+        current = startParentMap.get(current);
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+    }
+
+    current = meetingNode;
+
+    // Trace back to the end
+    while (current && current !== end) {
+        current.classList.add('path');
+        current = endParentMap.get(current);
+        await new Promise(resolve => setTimeout(resolve, 50)); // Delay for visualization
+    }
+}
+
 // Run Algorithm with Spinner and Celebration
 async function runAlgorithm() {
     if (!startNode || !endNode) {
@@ -262,6 +371,12 @@ async function runAlgorithm() {
             break;
         case 'astar':
             await astar(startNode, endNode);
+            break;
+        case 'greedy':
+            await greedyBestFirstSearch(startNode, endNode);
+            break;
+        case 'bidirectional':
+            await bidirectionalSearch(startNode, endNode);
             break;
         default:
             console.error('Unknown algorithm selected.');
