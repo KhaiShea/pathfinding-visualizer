@@ -8,6 +8,9 @@ const runButton = document.getElementById('run-btn');
 const algorithmSelect = document.getElementById('algorithm-select');
 const spinner = document.getElementById('spinner');
 
+const resetButton = document.getElementById('reset-btn');
+const clearPathButton = document.getElementById('clear-path-btn');
+
 let isMouseDown = false;
 
 // Create grid
@@ -267,6 +270,26 @@ async function runAlgorithm() {
     spinner.style.display = 'none'; // Hide spinner
     showCelebration(); // Show celebration
 }
+
+// Reset the entire grid
+function resetGrid() {
+    startNode = null;
+    endNode = null;
+    grid.querySelectorAll('.grid-cell').forEach(cell => {
+        cell.className = 'grid-cell';
+    });
+}
+
+// Clear only the path and visited cells
+function clearPath() {
+    grid.querySelectorAll('.visited, .path').forEach(cell => {
+        cell.classList.remove('visited', 'path');
+    });
+}
+
+// Add event listeners for the buttons
+resetButton.addEventListener('click', resetGrid);
+clearPathButton.addEventListener('click', clearPath);
 
 // Add event listener to the "Run" button
 runButton.addEventListener('click', runAlgorithm);
