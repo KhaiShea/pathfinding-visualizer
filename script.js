@@ -10,6 +10,7 @@ const spinner = document.getElementById('spinner');
 
 const resetButton = document.getElementById('reset-btn');
 const clearPathButton = document.getElementById('clear-path-btn');
+const themeToggleButton = document.getElementById('theme-toggle-btn');
 
 let isMouseDown = false;
 
@@ -402,9 +403,15 @@ function clearPath() {
     });
 }
 
+// Toggle dark/light mode
+function toggleTheme() {
+    document.body.classList.toggle('dark-mode');
+}
+
 // Add event listeners for the buttons
 resetButton.addEventListener('click', resetGrid);
 clearPathButton.addEventListener('click', clearPath);
+themeToggleButton.addEventListener('click', toggleTheme);
 
 // Add event listener to the "Run" button
 runButton.addEventListener('click', runAlgorithm);

@@ -70,3 +70,53 @@ header {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
+
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode #grid {
+    background-color: #333;
+}
+
+body.dark-mode .grid-cell {
+    background-color: #444;
+    border-color: #555;
+}
+
+body.dark-mode .grid-cell.start {
+    background-color: #0f0;
+}
+
+body.dark-mode .grid-cell.end {
+    background-color: #f00;
+}
+
+body.dark-mode .grid-cell.wall {
+    background-color: #222;
+}
+
+body.dark-mode .grid-cell.visited {
+    background-color: #555;
+}
+
+body.dark-mode .grid-cell.path {
+    background-color: #ffa500;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover {
+    background-color: #0056b3;
+}
