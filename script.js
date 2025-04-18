@@ -1,6 +1,6 @@
 const grid = document.getElementById('grid');
-const rows = 20;
-const cols = 20;
+const rows = 18; // Ensure rows match the grid styling
+const cols = 18; // Ensure columns match the grid styling
 let startNode = null;
 let endNode = null;
 
@@ -405,8 +405,24 @@ function clearPath() {
 
 // Toggle dark/light mode
 function toggleTheme() {
-    document.body.classList.toggle('dark-mode');
+    const body = document.body;
+    body.classList.toggle('light'); // Toggle the 'light' class
+    localStorage.setItem('theme', body.classList.contains('light') ? 'light' : 'dark'); // Save theme preference
 }
+
+// Apply saved theme on load
+function applySavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+        document.body.classList.add('light');
+    }
+}
+
+// Add event listener for the theme toggle button
+themeToggleButton.addEventListener('click', toggleTheme);
+
+// Apply theme on page load
+applySavedTheme();
 
 // Add event listeners for the buttons
 resetButton.addEventListener('click', resetGrid);

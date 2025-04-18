@@ -1,59 +1,118 @@
+/* Base (Dark Mode Default) */
 body {
-    font-family: Arial, sans-serif;
     margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: #f4f4f9;
+    font-family: monospace;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    max-width: 1200px; /* Restrict the maximum width */
+    margin: 0 auto; /* Center the content */
+    padding: 1rem; /* Add padding for spacing */
 }
 
 header {
-    text-align: center;
-    margin: 20px 0;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    font-size: 1.8rem;
+    margin: 0;
+}
+
+button {
+    margin: 0.25rem;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #333;
+    color: #fff;
+}
+
+button:hover {
+    background-color: #444;
 }
 
 .controls {
     display: flex;
     gap: 10px;
-    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.controls select,
+.controls input[type="range"] {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #222;
+    color: #fff;
+}
+
+.controls select:hover,
+.controls input[type="range"]:hover {
+    background-color: #333;
+}
+
+.controls select,
+.controls button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #444;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.controls select:hover,
+.controls button:hover {
+    background-color: #444;
 }
 
 #grid {
     display: grid;
-    grid-template-columns: repeat(20, 30px);
-    grid-template-rows: repeat(20, 30px);
+    grid-template-columns: repeat(18, 1fr); /* Use flexible column sizing */
+    grid-template-rows: repeat(18, 1fr);    /* Use flexible row sizing */
     gap: 1px;
-    background-color: #ccc;
+    background-color: #222;
+    width: 540px; /* Fixed width for consistent layout */
+    height: 540px; /* Fixed height for consistent layout */
+    padding: 1rem;
+    border-radius: 8px;
+    margin: 0 auto; /* Center the grid */
 }
 
+/* Ensure grid cells have consistent size */
 .grid-cell {
-    width: 30px;
-    height: 30px;
-    background-color: white;
-    border: 1px solid #ddd;
-    box-sizing: border-box;
-    cursor: pointer;
+    background-color: #444;
+    border: 1px solid #555;
+    transition: background-color 0.3s ease;
 }
 
 .grid-cell.start {
-    background-color: green;
+    background-color: #28a745;
 }
 
 .grid-cell.end {
-    background-color: red;
+    background-color: #dc3545;
 }
 
 .grid-cell.wall {
-    background-color: black;
+    background-color: #343a40;
 }
 
 .grid-cell.visited {
-    background-color: lightblue;
+    background-color: #17a2b8;
 }
 
 .grid-cell.path {
-    background-color: gold;
+    background-color: #ffc107;
 }
 
 .spinner {
@@ -71,52 +130,98 @@ header {
     100% { transform: rotate(360deg); }
 }
 
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-body.dark-mode #grid {
-    background-color: #333;
-}
-
-body.dark-mode .grid-cell {
-    background-color: #444;
-    border-color: #555;
-}
-
-body.dark-mode .grid-cell.start {
-    background-color: #0f0;
-}
-
-body.dark-mode .grid-cell.end {
-    background-color: #f00;
-}
-
-body.dark-mode .grid-cell.wall {
-    background-color: #222;
-}
-
-body.dark-mode .grid-cell.visited {
-    background-color: #555;
-}
-
-body.dark-mode .grid-cell.path {
-    background-color: #ffa500;
-}
-
 .theme-toggle {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    padding: 5px 10px;
+    margin-top: 1rem;
     background-color: #007bff;
     color: white;
+    font-weight: bold;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.3s ease;
 }
 
 .theme-toggle:hover {
     background-color: #0056b3;
+}
+
+footer {
+    margin-top: 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+footer a {
+    color: #00bcd4;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+/* Light Mode Overrides */
+body.light {
+    background-color: #ffffff;
+    color: #1a1a1a;
+}
+
+body.light #grid {
+    background-color: #f4f4f4;
+}
+
+body.light .grid-cell {
+    background-color: #ddd;
+    border-color: #ccc;
+}
+
+body.light .grid-cell.start {
+    background-color: #28a745;
+}
+
+body.light .grid-cell.end {
+    background-color: #dc3545;
+}
+
+body.light .grid-cell.wall {
+    background-color: #333;
+}
+
+body.light .grid-cell.visited {
+    background-color: #17a2b8;
+}
+
+body.light .grid-cell.path {
+    background-color: #ffc107;
+}
+
+body.light button {
+    background-color: #dddbdb;
+    color: #1a1a1a;
+}
+
+body.light button:hover {
+    background-color: #ccc;
+}
+
+body.light .controls select,
+body.light .controls button {
+    background-color: #f4f4f4;
+    color: #1a1a1a;
+    border: 1px solid #ccc;
+}
+
+body.light .controls select:hover,
+body.light .controls button:hover {
+    background-color: #e0e0e0;
+}
+
+body.light footer {
+    color: #555;
+}
+
+body.light footer a {
+    color: #007bff;
 }
